@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const LOCATION_QUERY = gql`
+const SINGLE_LOCATION_QUERY = gql`
   query Location($id: ID) {
     location(id: $id) {
       name
@@ -18,4 +18,4 @@ const LOCATION_QUERY = gql`
   }
 `;
 
-export default LOCATION_QUERY;
+export default SINGLE_LOCATION_QUERY;

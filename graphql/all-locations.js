@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const LOCATIONS_QUERY = gql`
+const ALL_LOCATIONS_QUERY = gql`
   query Locations($page: Int, $filter: FilterLocation) {
     locations(page: $page, filter: $filter) {
       results {
@@ -17,4 +17,4 @@ const LOCATIONS_QUERY = gql`
   }
 `;
 
-export default LOCATIONS_QUERY;
+export default ALL_LOCATIONS_QUERY;

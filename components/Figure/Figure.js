@@ -1,4 +1,4 @@
-import FigureStyles from './FigureStyles';
+import styles from './FigureStyles';
 import CustomText from '../CustomText/CustomText';
 
 const Figure = (props) => {
@@ -19,7 +19,7 @@ const Figure = (props) => {
           <CustomText style={'normal'}>{type}</CustomText>
         </p>
       </figcaption>
-      <style jsx>{FigureStyles}</style>
+      <style jsx>{styles}</style>
     </figure>
   )
 }

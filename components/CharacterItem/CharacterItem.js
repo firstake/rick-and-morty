@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import CharacterItemStyles from './CharacterItemStyles';
-import CustomText from '../CustomText/CustomText';
+
+import styles from './CharacterItemStyles';
+import CustomText from '../CustomText';
 import withCapitalLetter from '../../util/withCapitalLetter';
 
 class LocationItem extends Component {
@@ -35,7 +36,7 @@ class LocationItem extends Component {
             </section>
           </a>
         </Link>
-        <style jsx>{CharacterItemStyles}</style>
+        <style jsx>{styles}</style>
       </li>
     );
   }

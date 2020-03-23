@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const CHARACTER_QUERY = gql`
+const SINGLE_CHARACTER_QUERY = gql`
   query Character($id: ID) {
     character(id: $id) {
       image
@@ -18,4 +18,4 @@ const CHARACTER_QUERY = gql`
   }
 `;
 
-export default CHARACTER_QUERY;
+export default SINGLE_CHARACTER_QUERY;

@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-import CHARACTER_QUERY from '../../graphql/character';
-import Header from '../../components/Header/Header';
-import CustomText from '../../components/CustomText/CustomText';
+import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
+
+import Header from '../../components/Header';
+import CustomText from '../../components/CustomText';
+import BackwardLink from '../../components/BackwardLink';
 import withCapitalLetter from '../../util/withCapitalLetter';
-import BackwardLink from '../../components/BackwardLink/BackwardLink';
 
 function getCharacter(id) {
-  const { loading, error, data } = useQuery(CHARACTER_QUERY, {
+  const { loading, error, data } = useQuery(SINGLE_CHARACTER_QUERY, {
     variables: { id },
   });
 

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 
-import Header from '../components/Header/Header';
-import LocationItem from '../components/LocationItem/LocationItem';
+import Header from '../components/Header';
+import LocationItem from '../components/LocationItem';
 
-import LOCATIONS_QUERY from '../graphql/locations';
+import ALL_LOCATIONS_QUERY from '../graphql/all-locations';
 
 class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <Query query={LOCATIONS_QUERY} variables={{ page: 1 }}>
+        <Query query={ALL_LOCATIONS_QUERY} variables={{ page: 1 }}>
           {({ loading, error, data }) => {
             if (loading) return null;
             if (error) return `Error! ${error}`;

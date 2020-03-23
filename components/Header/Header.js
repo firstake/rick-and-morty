@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-import HeaderStyles, { global } from './HeaderStyles';
+import styles, { global } from './HeaderStyles';
 
 const Header = (props) => (
   <React.Fragment>
@@ -14,7 +14,7 @@ const Header = (props) => (
       <h1 className="visually-hidden">{props.title}</h1>
     </header>
     <style jsx>{global}</style>
-    <style jsx>{HeaderStyles}</style>
+    <style jsx>{styles}</style>
   </React.Fragment>
 );
 

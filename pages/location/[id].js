@@ -1,15 +1,16 @@
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-import LOCATION_QUERY from '../../graphql/location';
-import Header from '../../components/Header/Header';
-import CharacterItem from '../../components/CharacterItem/CharacterItem';
-import Figure from '../../components/Figure/Figure';
-import CustomText from '../../components/CustomText/CustomText';
-import BackwardLink from '../../components/BackwardLink/BackwardLink';
+import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
+
+import Header from '../../components/Header';
+import CharacterItem from '../../components/CharacterItem';
+import Figure from '../../components/Figure';
+import CustomText from '../../components/CustomText';
+import BackwardLink from '../../components/BackwardLink';
 import Loader from '../../components/Loader';
 
 function getSingleLocation(id) {
-  const { loading, error, data } = useQuery(LOCATION_QUERY, {
+  const { loading, error, data } = useQuery(SINGLE_LOCATION_QUERY, {
     variables: { id },
   });
 
