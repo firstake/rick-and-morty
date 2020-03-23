@@ -5,7 +5,8 @@ import Header from '../../components/Header/Header';
 import CharacterItem from '../../components/CharacterItem/CharacterItem';
 import Figure from '../../components/Figure/Figure';
 import CustomText from '../../components/CustomText/CustomText';
-import HistoryArrowLink from '../../components/HistoryArrow/HistoryArrow';
+import BackwardLink from '../../components/BackwardLink/BackwardLink';
+import Loader from '../../components/Loader';
 
 function getSingleLocation(id) {
   const { loading, error, data } = useQuery(LOCATION_QUERY, {
@@ -28,7 +29,7 @@ const Page = () => {
     <div>
       <Header title={`${name} Residents`} />
       <div>
-        <HistoryArrowLink
+        <BackwardLink
           pattern={'/'}
           to={'/'}
         />
@@ -44,6 +45,7 @@ const Page = () => {
               residents.map(item => <CharacterItem key={item.id} item={item} pageId={id} />)
             }
           </ul>
+          <Loader />
         </section>
       </div>
       <style jsx>{`
@@ -53,6 +55,20 @@ const Page = () => {
         h2 {
           text-align: center;
           margin-bottom: 14px;
+        }
+        @media screen and (min-width: 448px) {
+          ul {
+            margin: 0 auto;
+            width: fit-content;
+          }
+        }
+        @media screen and (min-width: 880px) {
+          div > div {
+            display: grid;
+            grid-template-columns: repeat(2, 414px);
+            margin: 8px auto;
+            width: fit-content;
+          }
         }
       `}</style>
     </div>

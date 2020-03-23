@@ -34,4 +34,14 @@ export default css`
     height: 50px;
     margin-right: 20px;
   }
+  @media screen and (min-width: 600px) {
+    section {
+      width: 540px;
+    }
+  }
+  @media screen and (min-width: 1132px) {
+    section {
+      margin: 4px;
+    }
+  }
 `;

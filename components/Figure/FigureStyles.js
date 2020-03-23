@@ -2,7 +2,8 @@ import css from 'styled-jsx/css';
 
 export default css`
   figure {
-    margin-bottom: 32px;
+    width: fit-content;
+    margin: 0 auto 32px auto;
   }
   img {
     width: 100%;

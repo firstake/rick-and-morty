@@ -25,4 +25,9 @@ export default css`
     overflow: hidden;
     margin-bottom: 10px;
   }
+  @media screen and (min-width: 448px) {
+    section {
+      width: 414px;
+    }
+  }
 `;

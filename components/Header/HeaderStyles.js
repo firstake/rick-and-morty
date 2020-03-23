@@ -9,9 +9,13 @@ export const global = css.global`
     padding: 0;
   }
   body {
-    background: linear-gradient(180deg, rgba(55, 185, 22, 0) 0%,
-    rgba(55, 185, 22, 0.3) 164.92%), url(/images/bg-galaxy.jpg), #000000;
-    height: 100vh;
+    background:
+    linear-gradient(
+      180deg, rgba(55, 185, 22, 0) 0%,
+      rgba(55, 185, 22, 0.25) 65%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    url(/images/bg-galaxy.jpg);
   }
   a {
     text-decoration: none;

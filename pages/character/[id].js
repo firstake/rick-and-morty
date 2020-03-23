@@ -4,7 +4,7 @@ import CHARACTER_QUERY from '../../graphql/character';
 import Header from '../../components/Header/Header';
 import CustomText from '../../components/CustomText/CustomText';
 import withCapitalLetter from '../../util/withCapitalLetter';
-import HistoryArrowLink from '../../components/HistoryArrow/HistoryArrow';
+import BackwardLink from '../../components/BackwardLink/BackwardLink';
 
 function getCharacter(id) {
   const { loading, error, data } = useQuery(CHARACTER_QUERY, {
@@ -28,7 +28,7 @@ const Page = () => {
         <Header title={`Character: ${name}`} />
         <div>
           <img src={image} alt={name} />
-          <HistoryArrowLink
+          <BackwardLink
             pattern={'/location/[id]'}
             to={`/location/${location.id}`}
           />
@@ -78,6 +78,26 @@ const Page = () => {
           }
           li {
             margin-bottom: 6px;
+          }
+          @media screen and (min-width: 415px) {
+            div > div {
+              width: fit-content;
+              margin: 0 auto;
+            }
+            img {
+              min-width: 398px;
+              max-width: none;
+            }
+          }
+          @media screen and (min-width: 856px) {
+            div > div {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              margin: 8px auto 0 auto;
+            }
+            section {
+              border: 2px solid #00b0c7;
+            }
           }
         `}</style>
       </div>
