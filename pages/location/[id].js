@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
 import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
@@ -31,8 +32,8 @@ const Page = () => {
       <Header title={`${name} Residents`} />
       <div>
         <BackwardLink
-          pattern={'/'}
-          to={'/'}
+          pattern="/"
+          to="/"
         />
         <Figure location={location} />
         <section>
@@ -43,13 +44,14 @@ const Page = () => {
           </h2>
           <ul>
             {
-              residents.map(item => <CharacterItem key={item.id} item={item} pageId={id} />)
+              residents.map((item) => <CharacterItem key={item.id} item={item} pageId={id} />)
             }
           </ul>
           <Loader />
         </section>
       </div>
-      <style jsx>{`
+      <style jsx>
+        {`
         div > div {
           position: relative;
         }
@@ -71,7 +73,8 @@ const Page = () => {
             width: fit-content;
           }
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };

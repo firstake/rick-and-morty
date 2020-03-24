@@ -14,23 +14,22 @@ class Home extends Component {
           {({ loading, error, data }) => {
             if (loading) return null;
             if (error) return `Error! ${error}`;
-  
+
             const { locations = {} } = data;
             const { results = [] } = locations;
-                  
+
             return (
               <React.Fragment>
-                <Header title={'Locations'} />
+                <Header title="Locations" />
                 <ul>
-                  {results.map(item => 
-                    <LocationItem key={item.id} item={item} />
-                  )}
+                  {results.map((item) => <LocationItem key={item.id} item={item} />)}
                 </ul>
               </React.Fragment>
             );
           }}
         </Query>
-        <style jsx>{`
+        <style jsx>
+          {`
           @media screen and (min-width: 600px) {
             ul {
               margin: 0 auto;
@@ -44,7 +43,8 @@ class Home extends Component {
               margin: 4px auto;
             }
           }
-        `}</style>
+        `}
+        </style>
       </React.Fragment>
     );
   }

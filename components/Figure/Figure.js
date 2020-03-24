@@ -1,8 +1,10 @@
+import React from 'react';
 import styles from './FigureStyles';
 import CustomText from '../CustomText/CustomText';
 
 const Figure = (props) => {
-  const { type = 'stub', name = '' } = props.location;
+  const { location } = props;
+  const { type = 'stub', name = '' } = location;
   const typeLink = type.toLowerCase().replace(' ', '-');
 
   return (
@@ -13,15 +15,15 @@ const Figure = (props) => {
       />
       <figcaption>
         <p>
-          <CustomText style={'bold'}>{name}</CustomText>
+          <CustomText style="bold">{name}</CustomText>
         </p>
         <p>
-          <CustomText style={'normal'}>{type}</CustomText>
+          <CustomText style="normal">{type}</CustomText>
         </p>
       </figcaption>
       <style jsx>{styles}</style>
     </figure>
-  )
-}
+  );
+};
 
 export default Figure;

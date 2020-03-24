@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
 import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
@@ -19,51 +20,58 @@ function getCharacter(id) {
 }
 
 const Page = () => {
-    const { query } = useRouter();
-    const { id } = query;
-    const { character = {} } = getCharacter(id);
-    const { name, image, species, status, location = {}, origin = {} } = character;
+  const { query } = useRouter();
+  const { id } = query;
+  const { character = {} } = getCharacter(id);
+  const {
+    name, image, species, status, location = {}, origin = {},
+  } = character;
 
-    return (
+  return (
+    <div>
+      <Header title={`Character: ${name}`} />
       <div>
-        <Header title={`Character: ${name}`} />
-        <div>
-          <img src={image} alt={name} />
-          <BackwardLink
-            pattern={'/location/[id]'}
-            to={`/location/${location.id}`}
-          />
-          <section>
-            <h2>
-              <CustomText style={'bold'}>
-                {name}
+        <img src={image} alt={name} />
+        <BackwardLink
+          pattern="/location/[id]"
+          to={`/location/${location.id}`}
+        />
+        <section>
+          <h2>
+            <CustomText style="bold">
+              {name}
+            </CustomText>
+          </h2>
+          <ul>
+            <li>
+              <CustomText style="normal">
+                {location.name}
               </CustomText>
-            </h2>
-            <ul>
-              <li>
-                <CustomText style={'normal'}>
-                  {location.name}
-                </CustomText>
-              </li>
-              <li>
-                <CustomText style={'normal'}>
-                  {withCapitalLetter(species)}
-                </CustomText>
-              </li>
-              <li>
-                <CustomText style={'bold'}>
-                  Status:<br />{status}
-                </CustomText>
-              </li>
-              <li>
-                <CustomText style={'bold'}>
-                  Home planet:<br />{withCapitalLetter(origin.name)}
-                </CustomText>
-              </li>
-            </ul>
-          </section>
-        </div>
-        <style jsx>{`
+            </li>
+            <li>
+              <CustomText style="normal">
+                {withCapitalLetter(species)}
+              </CustomText>
+            </li>
+            <li>
+              <CustomText style="bold">
+                Status:
+                <br />
+                {status}
+              </CustomText>
+            </li>
+            <li>
+              <CustomText style="bold">
+                Home planet:
+                <br />
+                {withCapitalLetter(origin.name)}
+              </CustomText>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <style jsx>
+        {`
           div > div {
             position: relative;
           }
@@ -100,9 +108,10 @@ const Page = () => {
               border: 2px solid #00b0c7;
             }
           }
-        `}</style>
-      </div>
-    )
-}
+        `}
+      </style>
+    </div>
+  );
+};
 
 export default Page;

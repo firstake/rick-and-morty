@@ -8,14 +8,13 @@ const GRAPHQL_URL = 'https://rickandmortyapi.com/graphql/';
 
 const link = createHttpLink({
   fetch,
-  uri: GRAPHQL_URL
+  uri: GRAPHQL_URL,
 });
 
 export default withApollo(
-  ({ initialState }) =>
-    new ApolloClient({
-      link: link,
-      cache: new InMemoryCache()
-        .restore(initialState || {})
-    })
+  ({ initialState }) => new ApolloClient({
+    link,
+    cache: new InMemoryCache()
+      .restore(initialState || {}),
+  }),
 );

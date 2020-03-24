@@ -8,6 +8,6 @@ const Loader = () => (
     </div>
     <style jsx>{styles}</style>
   </React.Fragment>
-)
+);
 
 export default Loader;
