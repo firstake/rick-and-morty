@@ -13,6 +13,9 @@ const ALL_LOCATIONS_QUERY = gql`
           image
         }
       }
+      info {
+        next
+      }
     }
   }
 `;
