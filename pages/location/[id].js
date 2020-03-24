@@ -1,14 +1,16 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
 
+import styles from '../../pages_styles/locationPageStyles';
 import Header from '../../components/Header';
 import CharacterItem from '../../components/CharacterItem';
 import Figure from '../../components/Figure';
 import CustomText from '../../components/CustomText';
 import BackwardLink from '../../components/BackwardLink';
 import Loader from '../../components/Loader';
+
+import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
 
 function getSingleLocation(id) {
   const { loading, error, data } = useQuery(SINGLE_LOCATION_QUERY, {
@@ -50,31 +52,7 @@ const Page = () => {
           <Loader />
         </section>
       </div>
-      <style jsx>
-        {`
-        div > div {
-          position: relative;
-        }
-        h2 {
-          text-align: center;
-          margin-bottom: 14px;
-        }
-        @media screen and (min-width: 448px) {
-          ul {
-            margin: 0 auto;
-            width: fit-content;
-          }
-        }
-        @media screen and (min-width: 880px) {
-          div > div {
-            display: grid;
-            grid-template-columns: repeat(2, 414px);
-            margin: 8px auto;
-            width: fit-content;
-          }
-        }
-      `}
-      </style>
+      <style jsx>{styles}</style>
     </div>
   );
 };

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
 
+import styles from '../../pages_styles/characterPageStyles';
 import Header from '../../components/Header';
 import CustomText from '../../components/CustomText';
 import BackwardLink from '../../components/BackwardLink';
 import withCapitalLetter from '../../util/withCapitalLetter';
+
+import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
 
 function getCharacter(id) {
   const { loading, error, data } = useQuery(SINGLE_CHARACTER_QUERY, {
@@ -70,46 +72,7 @@ const Page = () => {
           </ul>
         </section>
       </div>
-      <style jsx>
-        {`
-          div > div {
-            position: relative;
-          }
-          img {
-            width: 100%;
-            max-width: 414px;
-          }
-          h2 {
-            margin-bottom: 6px;
-          }
-          section {
-            padding: 14px;
-          }
-          li {
-            margin-bottom: 6px;
-          }
-          @media screen and (min-width: 415px) {
-            div > div {
-              width: fit-content;
-              margin: 0 auto;
-            }
-            img {
-              min-width: 398px;
-              max-width: none;
-            }
-          }
-          @media screen and (min-width: 856px) {
-            div > div {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              margin: 8px auto 0 auto;
-            }
-            section {
-              border: 2px solid #00b0c7;
-            }
-          }
-        `}
-      </style>
+      <style jsx>{styles}</style>
     </div>
   );
 };

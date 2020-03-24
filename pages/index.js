@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 
+import styles from '../pages_styles/indexPageStyles';
 import Header from '../components/Header';
 import LocationItem from '../components/LocationItem';
 
@@ -28,23 +29,7 @@ class Home extends Component {
             );
           }}
         </Query>
-        <style jsx>
-          {`
-          @media screen and (min-width: 600px) {
-            ul {
-              margin: 0 auto;
-              width: fit-content;
-            }
-          }
-          @media screen and (min-width: 1132px) {
-            ul {
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              margin: 4px auto;
-            }
-          }
-        `}
-        </style>
+        <style jsx>{styles}</style>
       </React.Fragment>
     );
   }
