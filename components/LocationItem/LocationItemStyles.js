@@ -28,6 +28,7 @@ export default css`
   div > div {
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
   }
   div > img {
     width: 50px;

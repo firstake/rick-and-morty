@@ -27,7 +27,7 @@ export const global = css.global`
 
 export default css`
   header {
-    background: #000 url(/images/header-logo.png) no-repeat 50% 50%/contain;
+    background: #000 url(/images/header-logo.jpg) no-repeat 50% 50%/contain;
     height: 133px;
   }
   .visually-hidden {

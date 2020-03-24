@@ -2,13 +2,13 @@ import styles from './FigureStyles';
 import CustomText from '../CustomText/CustomText';
 
 const Figure = (props) => {
-  const { type = '', name = '' } = props.location;
+  const { type = 'stub', name = '' } = props.location;
   const typeLink = type.toLowerCase().replace(' ', '-');
 
   return (
     <figure>
       <img
-        src={`/images/locations/lg/${typeLink}.jpg`}
+        src={`/images/locations/lg/${typeLink}.png`}
         alt={type}
       />
       <figcaption>

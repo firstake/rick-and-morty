@@ -47,7 +47,7 @@ const Page = () => {
               </li>
               <li>
                 <CustomText style={'normal'}>
-                  {species}
+                  {withCapitalLetter(species)}
                 </CustomText>
               </li>
               <li>
