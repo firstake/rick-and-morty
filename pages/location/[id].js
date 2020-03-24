@@ -37,20 +37,24 @@ const Page = () => {
           pattern="/"
           to="/"
         />
-        <Figure location={location} />
-        <section>
-          <h2>
-            <CustomText>
-              Residents
-            </CustomText>
-          </h2>
-          <ul>
-            {
-              residents.map((item) => <CharacterItem key={item.id} item={item} pageId={id} />)
-            }
-          </ul>
-          <Loader />
-        </section>
+        {Object.keys(location).length ? (
+          <React.Fragment>
+            <Figure location={location} />
+            <section>
+              <h2>
+                <CustomText>
+                  Residents
+                </CustomText>
+              </h2>
+              <ul>
+                {
+                  residents.map((item) => <CharacterItem key={item.id} item={item} pageId={id} />)
+                }
+              </ul>
+              <Loader />
+            </section>
+          </React.Fragment>
+        ) : null}
       </div>
       <style jsx>{styles}</style>
     </div>

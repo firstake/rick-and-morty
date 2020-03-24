@@ -4,12 +4,15 @@ import Link from 'next/link';
 import styles from './LocationItemStyles';
 import CustomText from '../CustomText';
 
+import typeToPicture from '../../util/typeToPicture';
+
 const LocationItem = (props) => {
   const { item } = props;
   const {
     id, name, type, residents,
   } = item;
-  const typeLink = type.toLowerCase().replace(' ', '-');
+
+  const typeLink = typeToPicture(type);
 
   return (
     <li>

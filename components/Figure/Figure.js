@@ -2,10 +2,13 @@ import React from 'react';
 import styles from './FigureStyles';
 import CustomText from '../CustomText/CustomText';
 
+import typeToPicture from '../../util/typeToPicture';
+
 const Figure = (props) => {
   const { location } = props;
-  const { type = 'Not Found', name = '' } = location;
-  const typeLink = type.toLowerCase().replace(' ', '-');
+  const { type = '', name = '' } = location;
+
+  const typeLink = typeToPicture(type);
 
   return (
     <figure>
