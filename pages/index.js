@@ -14,7 +14,7 @@ const HomePage = () => (
     {({
       data, loading, error, fetchMore,
     }) => {
-      if (loading) return 'Loading...';
+      if (loading) return '';
       if (error) return `Error ${error.message}`;
 
       return (
