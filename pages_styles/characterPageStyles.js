@@ -8,14 +8,11 @@ export default css`
     width: 100%;
     max-width: 414px;
   }
-  h2 {
+  h2, li {
     margin-bottom: 6px;
   }
   section {
     padding: 14px;
-  }
-  li {
-    margin-bottom: 6px;
   }
   @media screen and (min-width: 415px) {
     div > div {
