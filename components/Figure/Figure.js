@@ -4,7 +4,7 @@ import CustomText from '../CustomText/CustomText';
 
 const Figure = (props) => {
   const { location } = props;
-  const { type = 'stub', name = '' } = location;
+  const { type = 'Not Found', name = '' } = location;
   const typeLink = type.toLowerCase().replace(' ', '-');
 
   return (
