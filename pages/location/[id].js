@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Query } from 'react-apollo';
 import debounce from 'lodash.debounce';
@@ -26,7 +26,7 @@ const LocationPage = () => {
         data, loading, error,
       }) => {
         if (loading) return '';
-        if (error) return `Error ${error.message}`;
+        if (error) return Router.push('/');
 
         if (data) {
           const {

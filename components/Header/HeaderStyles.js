@@ -9,13 +9,16 @@ export const global = css.global`
     padding: 0;
   }
   body {
-    background:
+    background-image:
     linear-gradient(
       180deg, rgba(55, 185, 22, 0) 0%,
       rgba(55, 185, 22, 0.25) 65%,
       rgba(255, 255, 255, 0) 100%
     ),
     url(/images/bg-galaxy.jpg);
+    background-repeat: repeat;
+    background-size: 414px auto;
+    background-position: cover;
   }
   a {
     text-decoration: none;
