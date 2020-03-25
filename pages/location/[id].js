@@ -22,10 +22,7 @@ const LocationPage = () => {
   const client = useApolloClient();
   let pageCount = 1;
 
-  useEffect(() => {
-    return () =>
-      client.cache.reset()
-  }, []);
+  useEffect(() => () => client.cache.reset(), []);
 
   return (
     <Query query={SINGLE_LOCATION_QUERY} variables={{ id }}>
