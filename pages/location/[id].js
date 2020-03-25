@@ -17,8 +17,15 @@ import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
 const LocationPage = () => {
   const { query } = useRouter();
   const { id } = query;
+
+  // Emulate the download is so thankless task...
   const client = useApolloClient();
-  let currentResidentsPage = 1;
+  let pageCount = 1;
+
+  useEffect(() => {
+    return () =>
+      client.cache.reset()
+  }, []);
 
   return (
     <Query query={SINGLE_LOCATION_QUERY} variables={{ id }}>
@@ -34,12 +41,12 @@ const LocationPage = () => {
           } = data;
 
           const pageResidents = [...residents]
-            .slice(0, 20 * (currentResidentsPage));
+            .slice(0, 20 * (pageCount));
 
           const pageData = { ...data };
           pageData.location.residents = pageResidents;
 
-          const isNotlastPage = residents.length - currentResidentsPage * 20 > 0;
+          const isNotlastPage = residents.length - pageCount * 20 > 0;
 
           return (
             <Location
@@ -48,11 +55,10 @@ const LocationPage = () => {
                 isNotlastPage,
                 pageId: id,
                 onLoadMore: () => {
-                  currentResidentsPage += 1;
+                  pageCount += 1;
                   client.resetStore();
                 },
-              }
-              }
+              }}
             />
           );
         }
