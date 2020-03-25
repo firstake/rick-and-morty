@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/react-hooks';
+import { Query } from 'react-apollo';
+import debounce from 'lodash.debounce';
 
 import styles from '../../pages_styles/locationPageStyles';
 import Header from '../../components/Header';
@@ -12,22 +14,76 @@ import Loader from '../../components/Loader';
 
 import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
 
-function getSingleLocation(id) {
-  const { loading, error, data } = useQuery(SINGLE_LOCATION_QUERY, {
-    variables: { id },
-  });
-
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
-
-  return data;
-}
-
-const Page = () => {
+const LocationPage = () => {
   const { query } = useRouter();
   const { id } = query;
-  const { location = {} } = getSingleLocation(id);
-  const { residents = [], name = '' } = location;
+  const client = useApolloClient();
+  let currentResidentsPage = 1;
+
+  return (
+    <Query query={SINGLE_LOCATION_QUERY} variables={{ id }}>
+      {({
+        data, loading, error,
+      }) => {
+        if (loading) return '';
+        if (error) return `Error ${error.message}`;
+
+        if (data) {
+          const {
+            location: { residents },
+          } = data;
+
+          const pageResidents = [...residents]
+            .slice(0, 20 * (currentResidentsPage));
+
+          const pageData = { ...data };
+          pageData.location.residents = pageResidents;
+
+          const isNotlastPage = residents.length - currentResidentsPage * 20 > 0;
+
+          return (
+            <Location
+              {...{
+                ...pageData,
+                isNotlastPage,
+                pageId: id,
+                onLoadMore: () => {
+                  currentResidentsPage += 1;
+                  client.resetStore();
+                },
+              }
+              }
+            />
+          );
+        }
+
+        return null;
+      }}
+    </Query>
+  );
+};
+
+const Location = (props) => {
+  const {
+    location, pageId, onLoadMore, isNotlastPage,
+  } = props;
+  const { residents, name } = location;
+
+  const debouncedLoad = debounce(onLoadMore, 1000);
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop
+      === document.documentElement.offsetHeight
+      && isNotlastPage
+    ) {
+      debouncedLoad();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
 
   return (
     <div>
@@ -37,28 +93,24 @@ const Page = () => {
           pattern="/"
           to="/"
         />
-        {Object.keys(location).length ? (
-          <React.Fragment>
-            <Figure location={location} />
-            <section>
-              <h2>
-                <CustomText>
-                  Residents
-                </CustomText>
-              </h2>
-              <ul>
-                {
-                  residents.map((item) => <CharacterItem key={item.id} item={item} pageId={id} />)
-                }
-              </ul>
-              <Loader />
-            </section>
-          </React.Fragment>
-        ) : null}
+        <Figure location={location} />
+        <section>
+          <h2>
+            <CustomText>
+              Residents
+            </CustomText>
+          </h2>
+          <ul>
+            {
+              residents.map((item) => <CharacterItem key={item.id} item={item} pageId={pageId} />)
+            }
+          </ul>
+          <Loader isShown={isNotlastPage} />
+        </section>
       </div>
       <style jsx>{styles}</style>
     </div>
   );
 };
 
-export default Page;
+export default LocationPage;

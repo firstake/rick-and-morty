@@ -10,7 +10,7 @@ import withCapitalLetter from '../../util/withCapitalLetter';
 
 import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
 
-const Page = () => {
+const CharacterPage = () => {
   const { query } = useRouter();
   const { id } = query;
 
@@ -75,4 +75,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default CharacterPage;

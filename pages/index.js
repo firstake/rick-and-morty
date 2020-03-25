@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Query } from 'react-apollo';
-import delay from 'lodash.delay';
+import debounce from 'lodash.debounce';
 
 import styles from '../pages_styles/indexPageStyles';
 import Header from '../components/Header';
@@ -51,15 +51,17 @@ const HomePage = () => (
 const Locations = (props) => {
   const { results, islastPage, onLoadMore } = props;
 
+  const debouncedLoad = debounce(onLoadMore, 1000);
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop
       === document.documentElement.offsetHeight
       && !islastPage
     ) {
-      delay(onLoadMore, 2000);
+      debouncedLoad();
     }
   };
+
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
