@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import Router, { useRouter } from 'next/router';
-import { useApolloClient } from '@apollo/react-hooks';
 import { Query } from 'react-apollo';
 import debounce from 'lodash.debounce';
 
@@ -18,12 +17,6 @@ const LocationPage = () => {
   const { query } = useRouter();
   const { id } = query;
 
-  // Emulate the download is so thankless task...
-  const client = useApolloClient();
-  let pageCount = 1;
-
-  useEffect(() => () => client.cache.reset(), []);
-
   return (
     <Query query={SINGLE_LOCATION_QUERY} variables={{ id }}>
       {({
@@ -33,28 +26,11 @@ const LocationPage = () => {
         if (error) return Router.push('/');
 
         if (data) {
-          const {
-            location: { residents },
-          } = data;
-
-          const pageResidents = [...residents]
-            .slice(0, 20 * (pageCount));
-
-          const pageData = { ...data };
-          pageData.location.residents = pageResidents;
-
-          const isNotlastPage = residents.length - pageCount * 20 > 0;
-
           return (
             <Location
               {...{
-                ...pageData,
-                isNotlastPage,
+                ...data,
                 pageId: id,
-                onLoadMore: () => {
-                  pageCount += 1;
-                  client.resetStore();
-                },
               }}
             />
           );
@@ -66,54 +42,85 @@ const LocationPage = () => {
   );
 };
 
-const Location = (props) => {
-  const {
-    location, pageId, onLoadMore, isNotlastPage,
-  } = props;
-  const { residents, name } = location;
+class Location extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1,
+      pagesTotal: 1,
+      residents: this.props.location.residents.slice(0, 20),
+    };
 
-  const debouncedLoad = debounce(onLoadMore, 1000);
-  const handleScroll = () => {
+    this.onLoadMore = this.onLoadMore.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+
+    const pagesTotal = Math.ceil(this.props.location.residents.length / 20);
+    this.setState({
+      pagesTotal,
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  onLoadMore() {
+    const nextCurrentPage = this.state.currentPage + 1;
+    const nextResidents = this.props.location
+      .residents.slice(this.state.currentPage * 20, nextCurrentPage * 20);
+
+    this.setState((prevState) => ({
+      currentPage: nextCurrentPage,
+      residents: prevState.residents.concat(nextResidents),
+    }));
+  }
+
+  handleScroll() {
     if (
       window.innerHeight + document.documentElement.scrollTop
       === document.documentElement.offsetHeight
-      && isNotlastPage
+      && (this.state.currentPage < this.state.pagesTotal)
     ) {
-      debouncedLoad();
+      debounce(this.onLoadMore, 1000)();
     }
-  };
+  }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  });
+  render() {
+    const { location, pageId } = this.props;
+    const { name } = location;
+    const { residents } = this.state;
 
-  return (
-    <div>
-      <Header title={`${name} Residents`} />
+    return (
       <div>
-        <BackwardLink
-          pattern="/"
-          to="/"
-        />
-        <Figure location={location} />
-        <section>
-          <h2>
-            <CustomText>
-              Residents
-            </CustomText>
-          </h2>
-          <ul>
-            {
-              residents.map((item) => <CharacterItem key={item.id} item={item} pageId={pageId} />)
-            }
-          </ul>
-          <Loader isShown={isNotlastPage} />
-        </section>
+        <Header title={`${name} Residents`} />
+        <div>
+          <BackwardLink
+            pattern="/"
+            to="/"
+          />
+          <Figure location={location} />
+          <section>
+            <h2>
+              <CustomText>
+                Residents
+              </CustomText>
+            </h2>
+            <ul>
+              {
+                residents.map((item) => <CharacterItem key={item.id} item={item} pageId={pageId} />)
+              }
+            </ul>
+            <Loader isShown={(this.state.currentPage < this.state.pagesTotal)} />
+          </section>
+        </div>
+        <style jsx>{styles}</style>
       </div>
-      <style jsx>{styles}</style>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default LocationPage;
