@@ -18,7 +18,7 @@ export const global = css.global`
     url(/images/bg-galaxy.jpg);
     background-repeat: repeat;
     background-size: 414px auto;
-    background-position: cover;
+    background-position: center bottom;
   }
   a {
     text-decoration: none;
