@@ -23,15 +23,21 @@ const LocationPage = () => {
         data, loading, error,
       }) => {
         if (loading) return '';
-        if (error) return Router.push('/');
+        if (error) Router.push('/');
 
         if (data) {
+          const { location } = data;
+          const { name, residents } = location;
+
+          const locationData = {
+            name,
+            location,
+            residents,
+            pageId: id,
+          };
           return (
             <Location
-              {...{
-                ...data,
-                pageId: id,
-              }}
+              {...locationData}
             />
           );
         }
@@ -45,10 +51,12 @@ const LocationPage = () => {
 class Location extends Component {
   constructor(props) {
     super(props);
+
+    const { residents } = this.props;
     this.state = {
       currentPage: 1,
       pagesTotal: 1,
-      residents: this.props.location.residents.slice(0, 20),
+      residents: residents.slice(0, 20),
     };
 
     this.onLoadMore = this.onLoadMore.bind(this);
@@ -58,7 +66,8 @@ class Location extends Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
 
-    const pagesTotal = Math.ceil(this.props.location.residents.length / 20);
+    const { residents } = this.props;
+    const pagesTotal = Math.ceil(residents.length / 20);
     this.setState({
       pagesTotal,
     });
@@ -69,9 +78,11 @@ class Location extends Component {
   }
 
   onLoadMore() {
-    const nextCurrentPage = this.state.currentPage + 1;
-    const nextResidents = this.props.location
-      .residents.slice(this.state.currentPage * 20, nextCurrentPage * 20);
+    const { currentPage } = this.state;
+    const { residents } = this.props;
+
+    const nextCurrentPage = currentPage + 1;
+    const nextResidents = residents.slice(currentPage * 20, nextCurrentPage * 20);
 
     this.setState((prevState) => ({
       currentPage: nextCurrentPage,
@@ -80,19 +91,19 @@ class Location extends Component {
   }
 
   handleScroll() {
+    const { currentPage, pagesTotal } = this.state;
     if (
       window.innerHeight + document.documentElement.scrollTop
       === document.documentElement.offsetHeight
-      && (this.state.currentPage < this.state.pagesTotal)
+      && (currentPage < pagesTotal)
     ) {
       debounce(this.onLoadMore, 1000)();
     }
   }
 
   render() {
-    const { location, pageId } = this.props;
-    const { name } = location;
-    const { residents } = this.state;
+    const { name, location, pageId } = this.props;
+    const { residents, currentPage, pagesTotal } = this.state;
 
     return (
       <div>
@@ -114,7 +125,7 @@ class Location extends Component {
                 residents.map((item) => <CharacterItem key={item.id} item={item} pageId={pageId} />)
               }
             </ul>
-            <Loader isShown={(this.state.currentPage < this.state.pagesTotal)} />
+            <Loader isShown={currentPage < pagesTotal} />
           </section>
         </div>
         <style jsx>{styles}</style>
