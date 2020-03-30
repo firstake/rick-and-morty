@@ -7,6 +7,6 @@ Next.js, GraphQL
 
 *  Open project directory in terminal and run ```npm install```
 
-*  Once it is done installation, run ```npm run dev```
+*  When installation completed, run ```npm run dev```
 
-* Navigate to http://localhost:3000 in your browser
+* Navigate to http://localhost:3000
