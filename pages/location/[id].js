@@ -97,7 +97,7 @@ class Location extends Component {
       === document.documentElement.offsetHeight
       && (currentPage < pagesTotal)
     ) {
-      throttle(this.onLoadMore, 1000, { 'leading': false, 'trailing': true })();
+      throttle(this.onLoadMore, 1000, { leading: false, trailing: true })();
     }
   }
 

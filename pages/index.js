@@ -52,7 +52,7 @@ const HomePage = () => (
 const Locations = (props) => {
   const { results, islastPage, onLoadMore } = props;
 
-  const throttledLoad = throttle(onLoadMore, 1000, { 'leading': false, 'trailing': true });
+  const throttledLoad = throttle(onLoadMore, 1000, { leading: false, trailing: true });
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop
