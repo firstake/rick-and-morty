@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Query } from 'react-apollo';
-import debounce from 'lodash.debounce';
+
+import throttle from 'lodash.throttle';
 
 import styles from '../pages_styles/indexPageStyles';
 import Header from '../components/Header';
@@ -51,14 +52,14 @@ const HomePage = () => (
 const Locations = (props) => {
   const { results, islastPage, onLoadMore } = props;
 
-  const debouncedLoad = debounce(onLoadMore, 1000);
+  const throttledLoad = throttle(onLoadMore, 1000, { 'leading': false, 'trailing': true });
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop
       === document.documentElement.offsetHeight
       && !islastPage
     ) {
-      debouncedLoad();
+      throttledLoad();
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Router, { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 
 import styles from '../../pages_styles/locationPageStyles';
 import Header from '../../components/Header';
@@ -97,7 +97,7 @@ class Location extends Component {
       === document.documentElement.offsetHeight
       && (currentPage < pagesTotal)
     ) {
-      debounce(this.onLoadMore, 1000)();
+      throttle(this.onLoadMore, 1000, { 'leading': false, 'trailing': true })();
     }
   }
 
