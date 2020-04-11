@@ -3,7 +3,6 @@ import { Query } from 'react-apollo';
 
 import throttle from 'lodash.throttle';
 
-import styles from '../pages_styles/indexPageStyles';
 import Header from '../components/Header';
 import LocationItem from '../components/LocationItem';
 import Loader from '../components/Loader';
@@ -75,7 +74,23 @@ const Locations = (props) => {
         {results.map((item) => <LocationItem key={item.id} item={item} />)}
       </ul>
       <Loader isShown={!islastPage} />
-      <style jsx>{styles}</style>
+      <style jsx>
+        {`
+        @media screen and (min-width: 600px) {
+          ul {
+            margin: 0 auto;
+            width: fit-content;
+          }
+        }
+        @media screen and (min-width: 1132px) {
+          ul {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin: 4px auto;
+          }
+        }
+      `}
+      </style>
     </React.Fragment>
   );
 };

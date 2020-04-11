@@ -3,7 +3,6 @@ import Router, { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 import throttle from 'lodash.throttle';
 
-import styles from '../../pages_styles/locationPageStyles';
 import Header from '../../components/Header';
 import CharacterItem from '../../components/CharacterItem';
 import Figure from '../../components/Figure';
@@ -128,7 +127,31 @@ class Location extends Component {
             <Loader isShown={currentPage < pagesTotal} />
           </section>
         </div>
-        <style jsx>{styles}</style>
+        <style jsx>
+          {`
+          div > div {
+            position: relative;
+          }
+          h2 {
+            text-align: center;
+            margin-bottom: 14px;
+          }
+          @media screen and (min-width: 448px) {
+            ul {
+              margin: 0 auto;
+              width: fit-content;
+            }
+          }
+          @media screen and (min-width: 880px) {
+            div > div {
+              display: grid;
+              grid-template-columns: repeat(2, 414px);
+              margin: 8px auto;
+              width: fit-content;
+            }
+          }
+        `}
+        </style>
       </div>
     );
   }
