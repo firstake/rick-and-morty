@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './FigureStyles';
 import CustomText from '../CustomText/CustomText';
 
-import typeToPicture from '../../util/typeToPicture';
+import typeToPicture from '../../utils/typeToPicture';
 
 const Figure = (props) => {
   const { location } = props;

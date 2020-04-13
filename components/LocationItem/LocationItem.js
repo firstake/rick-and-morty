@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styles from './LocationItemStyles';
 import CustomText from '../CustomText';
 
-import typeToPicture from '../../util/typeToPicture';
+import typeToPicture from '../../utils/typeToPicture';
 
 const LocationItem = (props) => {
   const { item } = props;

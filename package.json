@@ -7,7 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext .js ./components ./pages ./util"
+    "lint": "eslint --ext .js ./components ./pages ./utils"
   },
   "repository": {
     "type": "git",

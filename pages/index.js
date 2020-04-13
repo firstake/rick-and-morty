@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Query } from 'react-apollo';
 
 import throttle from 'lodash.throttle';
-import { options, callback } from '../util/intersectionObserverConfig';
+import { options, callback } from '../utils/intersectionObserverConfig';
 
 import Header from '../components/Header';
 import LocationItem from '../components/LocationItem';

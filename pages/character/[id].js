@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 import Header from '../../components/Header';
 import CustomText from '../../components/CustomText';
 import BackwardLink from '../../components/BackwardLink';
-import withCapitalLetter from '../../util/withCapitalLetter';
+import withCapitalLetter from '../../utils/withCapitalLetter';
 
 import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
 

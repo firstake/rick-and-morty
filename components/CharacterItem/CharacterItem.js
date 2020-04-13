@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import styles from './CharacterItemStyles';
 import CustomText from '../CustomText';
-import withCapitalLetter from '../../util/withCapitalLetter';
+import withCapitalLetter from '../../utils/withCapitalLetter';
 
 const LocationItem = (props) => {
   const { item } = props;

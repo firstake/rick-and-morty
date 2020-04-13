@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Router, { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 import throttle from 'lodash.throttle';
-import { options, callback } from '../../util/intersectionObserverConfig';
+import { options, callback } from '../../utils/intersectionObserverConfig';
 
 import Header from '../../components/Header';
 import CharacterItem from '../../components/CharacterItem';
