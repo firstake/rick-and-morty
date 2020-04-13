@@ -11,62 +11,77 @@ import Loader from '../components/Loader';
 import ALL_LOCATIONS_QUERY from '../graphql/all-locations';
 
 const HomePage = () => (
-  <Query query={ALL_LOCATIONS_QUERY} variables={{ page: 1 }}>
-    {({
-      data, loading, error, fetchMore,
-    }) => {
-      if (loading) return null;
-      if (error) return `Error ${error.message}`;
+  <React.Fragment>
+    <Header title="Locations" />
+    <Query query={ALL_LOCATIONS_QUERY} variables={{ page: 1 }} notifyOnNetworkStatusChange>
+      {({
+        data, loading, error, fetchMore,
+      }) => {
+        if (loading && !data) {
+          return (
+            <Locations
+              results={[]}
+              islastPage={false}
+              onLoadMore={() => {}}
+              isFetching={loading}
+            />
+          );
+        }
+        if (error) return `Error ${error.message}`;
 
-      return (
-        data && (
+        const onFetchMore = () => {
+          fetchMore({
+            variables: {
+              page: data.locations.info.next,
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+              if (!fetchMoreResult) return prev;
+              return {
+                ...fetchMoreResult,
+                locations: {
+                  ...fetchMoreResult.locations,
+                  info: fetchMoreResult.locations.info,
+                  results: [
+                    ...prev.locations.results,
+                    ...fetchMoreResult.locations.results,
+                  ],
+                },
+              };
+            },
+          });
+        };
+
+        return (
           <Locations
             results={data.locations.results}
             islastPage={!data.locations.info.next}
-            onLoadMore={() => {
-              fetchMore({
-                variables: {
-                  page: data.locations.info.next,
-                },
-                notifyOnNetworkStatusChange: true,
-                updateQuery: (prev, { fetchMoreResult }) => {
-                  if (!fetchMoreResult) return prev;
-                  return {
-                    ...fetchMoreResult,
-                    locations: {
-                      ...fetchMoreResult.locations,
-                      info: fetchMoreResult.locations.info,
-                      results: [
-                        ...prev.locations.results,
-                        ...fetchMoreResult.locations.results,
-                      ],
-                    },
-                  };
-                },
-              });
-            }}
+            onLoadMore={() => onFetchMore()}
+            isFetching={loading}
           />
-        )
-      );
-    }}
-  </Query>
+        );
+      }}
+    </Query>
+  </React.Fragment>
 );
 
 const Locations = (props) => {
-  const { results, islastPage, onLoadMore } = props;
+  const {
+    results, islastPage, onLoadMore, isFetching,
+  } = props;
   const loaderRef = useRef(null);
 
   const throttledLoad = throttle(onLoadMore, 1000, { leading: false, trailing: true });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(callback(!islastPage, throttledLoad), options);
+    const observer = new IntersectionObserver(
+      callback((!islastPage && !isFetching), throttledLoad), options,
+    );
     if (loaderRef.current) observer.observe(loaderRef.current);
     return () => observer.disconnect();
   });
 
   return (
     <React.Fragment>
-      <Header title="Locations" />
       <ul>
         {results.map((item) => <LocationItem key={item.id} item={item} />)}
       </ul>
