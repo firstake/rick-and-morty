@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Router, { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 import throttle from 'lodash.throttle';
+import { options, callback } from '../../util/intersectionObserverConfig';
 
 import Header from '../../components/Header';
 import CharacterItem from '../../components/CharacterItem';
@@ -21,7 +22,11 @@ const LocationPage = () => {
       {({
         data, loading, error,
       }) => {
-        if (loading) return '';
+        if (loading) {
+          return (
+            <Header title="Loading Residents..." />
+          );
+        }
         if (error) Router.push('/');
 
         if (data) {
@@ -59,21 +64,33 @@ class Location extends Component {
     };
 
     this.onLoadMore = this.onLoadMore.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
+    this.throttledLoad = this.throttledLoad.bind(this);
+
+    this.loaderRef = React.createRef();
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-
     const { residents } = this.props;
+    const { currentPage } = this.state;
     const pagesTotal = Math.ceil(residents.length / 20);
     this.setState({
       pagesTotal,
     });
+    if (pagesTotal > 1) {
+      this.observer = new IntersectionObserver(
+        callback((currentPage < pagesTotal), this.throttledLoad()), options,
+      );
+      this.observer.observe(this.loaderRef.current);
+    }
+  }
+
+  componentDidUpdate() {
+    const { currentPage, pagesTotal } = this.state;
+    if (this.observer && currentPage === pagesTotal) this.observer.disconnect();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    if (this.observer) this.observer.disconnect();
   }
 
   onLoadMore() {
@@ -89,15 +106,8 @@ class Location extends Component {
     }));
   }
 
-  handleScroll() {
-    const { currentPage, pagesTotal } = this.state;
-    if (
-      window.innerHeight + document.documentElement.scrollTop
-      === document.documentElement.offsetHeight
-      && (currentPage < pagesTotal)
-    ) {
-      throttle(this.onLoadMore, 1000, { leading: false, trailing: true })();
-    }
+  throttledLoad() {
+    return throttle(this.onLoadMore, 1000, { leading: false, trailing: true });
   }
 
   render() {
@@ -124,7 +134,9 @@ class Location extends Component {
                 residents.map((item) => <CharacterItem key={item.id} item={item} pageId={pageId} />)
               }
             </ul>
-            <Loader isShown={currentPage < pagesTotal} />
+            <div ref={this.loaderRef}>
+              <Loader isShown={currentPage < pagesTotal} />
+            </div>
           </section>
         </div>
         <style jsx>
