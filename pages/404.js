@@ -1,3 +1,4 @@
+import React from 'react';
 import { global } from '../components/Header/HeaderStyles';
 import BackwardLink from '../components/BackwardLink';
 
@@ -8,7 +9,8 @@ const Custom404 = () => (
       <BackwardLink pattern="/" to="/" />
     </div>
     <style jsx>{global}</style>
-    <style jsx>{`
+    <style jsx>
+      {`
       h1 {
         text-align: center;
         margin-top: 40vh;
@@ -18,7 +20,8 @@ const Custom404 = () => (
         width: 71px;
         margin: 0 auto;
       }
-    `}</style>
+    `}
+    </style>
   </React.Fragment>
 );
 

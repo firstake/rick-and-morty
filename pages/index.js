@@ -27,6 +27,7 @@ const HomePage = () => (
             />
           );
         }
+
         if (error) return `Error ${error.message}`;
 
         const onFetchMore = () => {

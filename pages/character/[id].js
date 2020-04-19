@@ -1,11 +1,12 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 
 import Header from '../../components/Header';
 import CustomText from '../../components/CustomText';
 import BackwardLink from '../../components/BackwardLink';
 import withCapitalLetter from '../../utils/withCapitalLetter';
+import Custom404 from '../404';
 
 import SINGLE_CHARACTER_QUERY from '../../graphql/single-character';
 
@@ -23,7 +24,11 @@ const CharacterPage = () => {
             <Header title="Loading Character..." />
           );
         }
-        if (error) return `Error ${error.message}`;
+
+        if (error) {
+          Router.replace('/character/:id', '/404', { shallow: true });
+          return (<Custom404 />);
+        }
 
         return (
           <div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 import throttle from 'lodash.throttle';
 import { options, callback } from '../../utils/intersectionObserverConfig';
@@ -10,6 +10,7 @@ import Figure from '../../components/Figure';
 import CustomText from '../../components/CustomText';
 import BackwardLink from '../../components/BackwardLink';
 import Loader from '../../components/Loader';
+import Custom404 from '../404';
 
 import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
 
@@ -18,7 +19,7 @@ const LocationPage = () => {
   const { id } = query;
 
   return (
-    <Query query={SINGLE_LOCATION_QUERY} variables={{ id }}>
+    <Query query={SINGLE_LOCATION_QUERY} variables={{ id }} errorPolicy="all">
       {({
         data, loading, error,
       }) => {
@@ -27,9 +28,10 @@ const LocationPage = () => {
             <Header title="Loading Residents..." />
           );
         }
-        if (error) Router.push('/');
 
-        if (data) {
+        if (error) console.error(`Error ${error.message}`);
+
+        if (data && data.location) {
           const { location } = data;
           const { name, residents } = location;
 
@@ -46,7 +48,7 @@ const LocationPage = () => {
           );
         }
 
-        return null;
+        return (<Custom404 />);
       }}
     </Query>
   );
@@ -126,14 +128,22 @@ class Location extends Component {
           <section>
             <h2>
               <CustomText>
-                Residents
+                {residents[0].id ? 'Residents' : 'No residents found...'}
               </CustomText>
             </h2>
-            <ul>
-              {
-                residents.map((item) => <CharacterItem key={item.id} item={item} pageId={pageId} />)
-              }
-            </ul>
+            {residents[0].id ? (
+              <ul>
+                {
+                  residents.map((item) => (
+                    <CharacterItem
+                      key={item.id}
+                      item={item}
+                      pageId={pageId}
+                    />
+                  ))
+                }
+              </ul>
+            ) : null}
             <div ref={this.loaderRef}>
               <Loader isShown={currentPage < pagesTotal} />
             </div>
