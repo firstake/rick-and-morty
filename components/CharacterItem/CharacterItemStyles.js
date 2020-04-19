@@ -9,8 +9,7 @@ export default css`
     background: #073955;
   }
   img {
-    width: auto;
-    height: 100%;
+    background-color: #3f677d;
   }
   div {
     display: flex;

@@ -5,7 +5,7 @@ import styles from './CharacterItemStyles';
 import CustomText from '../CustomText';
 import withCapitalLetter from '../../utils/withCapitalLetter';
 
-const LocationItem = (props) => {
+const CharacterItem = (props) => {
   const { item } = props;
   const {
     id, name, image, species, origin,
@@ -17,7 +17,7 @@ const LocationItem = (props) => {
       <Link href="/character/[id]" as={`/character/${id}`}>
         <a>
           <section>
-            <img src={image} alt={name} />
+            <img src={image} alt={name} width="145" height="145" />
             <div>
               <h2>
                 <CustomText style="bold">
@@ -43,4 +43,4 @@ const LocationItem = (props) => {
   );
 };
 
-export default LocationItem;
+export default CharacterItem;

@@ -8,10 +8,6 @@ export default css`
     display: flex;
     background: #312A2A;
   }
-  section > img {
-    width: auto;
-    height: 100%;
-  }
   section > div {
     display: flex;
     flex-direction: column;
@@ -31,8 +27,7 @@ export default css`
     overflow-y: hidden;
   }
   div > img {
-    width: 50px;
-    height: 50px;
+    background-color: #5f4f4f;
     margin-right: 20px;
   }
   @media screen and (min-width: 600px) {
