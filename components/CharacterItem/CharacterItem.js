@@ -17,7 +17,7 @@ const CharacterItem = (props) => {
       <Link href="/character/[id]" as={`/character/${id}`}>
         <a>
           <section>
-            <img src={image} alt={name} width="145" height="145" />
+            <img src={image} alt={name} />
             <div>
               <h2>
                 <CustomText style="bold">

@@ -10,6 +10,8 @@ export default css`
   }
   img {
     background-color: #3f677d;
+    min-width: 145px;
+    height: 145px;
   }
   div {
     display: flex;

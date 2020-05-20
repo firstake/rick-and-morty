@@ -12,12 +12,11 @@ export const global = css.global`
     min-height: 100%;
   }
   body {
-    background-size: auto 100%, 207px auto;
     background-image:
       linear-gradient(180deg, rgba(55, 185, 22, 0) 0%, rgba(55, 185, 22, 0.3) 165%),
       url(/images/bg-galaxy.jpg);
     background-repeat: repeat;
-    background-size: auto 100%, 207px auto;
+    background-size: auto calc(100% + 133px), 207px auto;
   }
   a {
     text-decoration: none;

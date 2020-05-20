@@ -19,7 +19,7 @@ const LocationItem = (props) => {
       <Link href="/location/[id]" as={`/location/${id}`}>
         <a>
           <section>
-            <img src={`images/locations/${typeLink}.png`} alt={type} width="145" height="145" />
+            <img src={`images/locations/${typeLink}.png`} alt={type} />
             <div>
               <h2>
                 <CustomText style="bold">
@@ -40,8 +40,6 @@ const LocationItem = (props) => {
                         src={resident.image}
                         alt={resident.name}
                         title={resident.name}
-                        width="50"
-                        height="50"
                       />
                     ))}
                   </div>

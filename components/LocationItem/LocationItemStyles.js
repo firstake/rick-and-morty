@@ -8,6 +8,10 @@ export default css`
     display: flex;
     background: #312A2A;
   }
+  section > img {
+    min-width: 145px;
+    height: 145px;
+  }
   section > div {
     display: flex;
     flex-direction: column;
@@ -27,6 +31,7 @@ export default css`
     overflow-y: hidden;
   }
   div > img {
+    max-width: 50px;
     background-color: #5f4f4f;
     margin-right: 20px;
   }
