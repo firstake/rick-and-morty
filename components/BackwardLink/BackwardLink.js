@@ -18,11 +18,10 @@ const BackwardLink = (props) => {
           }
           img {
             border-radius: 50%;
-            box-shadow: 0px 0px 2px 0px rgb(0, 0, 0) inset;
             width: 70px;
             height: 70px;
             object-fit: none;
-            background: rgba(0, 0, 0, 0.18);
+            filter: drop-shadow(2px 4px 6px rgb(0 0 0 / 70%));
           }
         `}
         </style>
