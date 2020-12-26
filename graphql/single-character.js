@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 const SINGLE_CHARACTER_QUERY = gql`
-  query Character($id: ID) {
+  query Character($id: ID!) {
     character(id: $id) {
       image
       name
