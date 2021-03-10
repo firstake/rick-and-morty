@@ -1,4 +1,6 @@
 # Rick and Morty App
+<img src="preview.jpg" />
+
 Next.js, GraphQL
 
 ### To be able to run app, you need to take the following steps:
