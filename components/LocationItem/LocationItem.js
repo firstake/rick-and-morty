@@ -6,12 +6,10 @@ import CustomText from '../CustomText';
 
 import typeToPicture from '../../utils/typeToPicture';
 
-const LocationItem = (props) => {
-  const { item } = props;
+const LocationItem = ({ item }) => {
   const {
     id, name, type, residents,
   } = item;
-
   const typeLink = typeToPicture(type);
 
   return (

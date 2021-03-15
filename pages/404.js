@@ -1,10 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
+
 import { global } from '../components/Header/HeaderStyles';
 import BackwardLink from '../components/BackwardLink';
 
 const Custom404 = () => (
-  <React.Fragment>
+  <>
     <Head>
       <title>Rick and Morty - Nothing Found</title>
       <link rel="icon" href="/favicon.png" />
@@ -28,7 +29,7 @@ const Custom404 = () => (
       }
     `}
     </style>
-  </React.Fragment>
+  </>
 );
 
 export default Custom404;

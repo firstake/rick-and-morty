@@ -1,7 +1,7 @@
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import withApollo from 'next-with-apollo';
 import { createHttpLink } from 'apollo-link-http';
+import withApollo from 'next-with-apollo';
 import fetch from 'isomorphic-unfetch';
 
 const GRAPHQL_URL = 'https://rickandmortyapi.com/graphql/';

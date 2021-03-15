@@ -11,7 +11,7 @@ import Loader from '../components/Loader';
 import ALL_LOCATIONS_QUERY from '../graphql/all-locations';
 
 const HomePage = () => (
-  <React.Fragment>
+  <>
     <Header title="Locations" />
     <Query query={ALL_LOCATIONS_QUERY} variables={{ page: 1 }} notifyOnNetworkStatusChange>
       {({
@@ -62,15 +62,13 @@ const HomePage = () => (
         );
       }}
     </Query>
-  </React.Fragment>
+  </>
 );
 
-const Locations = (props) => {
-  const {
-    results, islastPage, onLoadMore, isFetching,
-  } = props;
+const Locations = ({
+  results, islastPage, onLoadMore, isFetching,
+}) => {
   const loaderRef = useRef(null);
-
   const throttledLoad = throttle(onLoadMore, 1000, { leading: false, trailing: true });
 
   useEffect(() => {
@@ -82,7 +80,7 @@ const Locations = (props) => {
   });
 
   return (
-    <React.Fragment>
+    <>
       <ul>
         {results.map((item) => <LocationItem key={item.id} item={item} />)}
       </ul>
@@ -106,7 +104,7 @@ const Locations = (props) => {
           }
         `}
       </style>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -4,10 +4,8 @@ import CustomText from '../CustomText/CustomText';
 
 import typeToPicture from '../../utils/typeToPicture';
 
-const Figure = (props) => {
-  const { location } = props;
+const Figure = ({ location }) => {
   const { type = '', name = '' } = location;
-
   const typeLink = typeToPicture(type);
 
   return (

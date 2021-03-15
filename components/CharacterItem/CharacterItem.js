@@ -5,8 +5,7 @@ import styles from './CharacterItemStyles';
 import CustomText from '../CustomText';
 import withCapitalLetter from '../../utils/withCapitalLetter';
 
-const CharacterItem = (props) => {
-  const { item } = props;
+const CharacterItem = ({ item }) => {
   const {
     id, name, image, species, origin,
   } = item;

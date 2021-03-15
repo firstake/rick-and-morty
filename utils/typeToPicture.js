@@ -12,9 +12,11 @@ const typePictures = [
 
 const typeToPicture = (type) => {
   const lowerCaseType = type.toLowerCase();
+
   if (typePictures.includes(lowerCaseType)) {
     return lowerCaseType.replace(' ', '-');
   }
+
   return 'unknown';
 };
 

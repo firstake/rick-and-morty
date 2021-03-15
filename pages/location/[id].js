@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 import throttle from 'lodash.throttle';
+
 import { options, callback } from '../../utils/intersectionObserverConfig';
 
 import Header from '../../components/Header';
@@ -29,6 +30,7 @@ const LocationPage = () => {
           );
         }
 
+        // eslint-disable-next-line
         if (error) console.error(`Error ${error.message}`);
 
         if (data && data.location) {
@@ -41,6 +43,7 @@ const LocationPage = () => {
             residents,
             pageId: id,
           };
+
           return (
             <Location
               {...locationData}
