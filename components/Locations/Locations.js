@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-
 import throttle from 'lodash.throttle';
-import { options, callback } from '../../utils/intersectionObserverConfig';
 
 import LocationItem from '../LocationItem';
 import Loader from '../Loader';
+
+import { options, callback } from '../../utils/intersectionObserverConfig';
 
 const Locations = ({
   results, islastPage, onLoadMore, isFetching,
@@ -16,7 +16,9 @@ const Locations = ({
     const observer = new IntersectionObserver(
       callback((!islastPage && !isFetching), throttledLoad), options,
     );
+
     if (loaderRef.current) observer.observe(loaderRef.current);
+
     return () => observer.disconnect();
   });
 

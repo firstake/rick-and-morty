@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import throttle from 'lodash.throttle';
 
-import { options, callback } from '../../utils/intersectionObserverConfig';
-
 import Header from '../Header';
 import CharacterItem from '../CharacterItem';
 import Figure from '../Figure';
@@ -10,11 +8,14 @@ import CustomText from '../CustomText';
 import BackwardLink from '../BackwardLink';
 import Loader from '../Loader';
 
+import { options, callback } from '../../utils/intersectionObserverConfig';
+
 class Location extends Component {
   constructor(props) {
     super(props);
 
     const { residents } = this.props;
+
     this.state = {
       currentPage: 1,
       pagesTotal: 1,
@@ -30,14 +31,17 @@ class Location extends Component {
   componentDidMount() {
     const { residents } = this.props;
     const { currentPage } = this.state;
+
     const pagesTotal = Math.ceil(residents.length / 20);
     this.setState({
       pagesTotal,
     });
+
     if (pagesTotal > 1) {
       this.observer = new IntersectionObserver(
         callback((currentPage < pagesTotal), this.throttledLoad()), options,
       );
+
       this.observer.observe(this.loaderRef.current);
     }
   }
