@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Query } from 'react-apollo';
 
+import { usePrefetchHomePage } from '../../hooks/usePrefetchHomePage';
 import Header from '../../components/Header';
 import Location from '../../components/Location';
 import Custom404 from '../404';
@@ -11,6 +12,8 @@ import SINGLE_LOCATION_QUERY from '../../graphql/single-location';
 const LocationPage = () => {
   const { query } = useRouter();
   const { id } = query;
+
+  usePrefetchHomePage();
 
   return (
     <Query query={SINGLE_LOCATION_QUERY} variables={{ id }} errorPolicy="all">
