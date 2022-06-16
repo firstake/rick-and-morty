@@ -29,7 +29,7 @@ const LocationItem = ({ item }) => {
                   {type}
                 </CustomText>
               </p>
-              {residents[0].id
+              {residents[0]?.id
                 ? (
                   <div>
                     {residents.slice(0, 3).map((resident) => (
